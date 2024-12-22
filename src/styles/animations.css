@@ -1,16 +1,95 @@
 .walking-animation {
-    transform-origin: center center;
+  transform-origin: center center;
+}
+
+/* Walking cycle animations */
+@keyframes legSwing {
+  0%, 100% {
+    transform: rotate(-20deg);
   }
-  
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
+  50% {
+    transform: rotate(20deg);
   }
-  
-  .float {
-    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes armSwing {
+  0%, 100% {
+    transform: rotate(15deg);
   }
+  50% {
+    transform: rotate(-15deg);
+  }
+}
+
+@keyframes bodyBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Apply animations when walking */
+.walking .leg-left {
+  animation: legSwing 1s infinite ease-in-out;
+}
+
+.walking .leg-right {
+  animation: legSwing 1s infinite ease-in-out reverse;
+}
+
+.walking .arm-left {
+  animation: armSwing 1s infinite ease-in-out;
+}
+
+.walking .arm-right {
+  animation: armSwing 1s infinite ease-in-out reverse;
+}
+
+.walking .dude {
+  animation: bodyBounce 0.5s infinite ease-in-out;
+}
+
+/* Section transitions */
+.section-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.section-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.section-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.section-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 500ms, transform 500ms;
+}
+
+/* Skill tag animations */
+@keyframes skillPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(74, 144, 226, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
+  }
+}
+
+.skill-tag:hover {
+  animation: skillPulse 1.5s infinite;
+}
