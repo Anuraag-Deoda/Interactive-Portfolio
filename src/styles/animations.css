@@ -1,95 +1,135 @@
-.walking-animation {
-  transform-origin: center center;
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
 }
 
-/* Walking cycle animations */
-@keyframes legSwing {
-  0%, 100% {
-    transform: rotate(-20deg);
-  }
-  50% {
-    transform: rotate(20deg);
-  }
+/* Main scrollable container */
+.page {
+    height: 500vh;  /* Controls total scroll length */
+    position: relative;
 }
 
-@keyframes armSwing {
-  0%, 100% {
-    transform: rotate(15deg);
-  }
-  50% {
-    transform: rotate(-15deg);
-  }
+/* Fixed container for horizontally sliding content */
+.content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    display: flex;
+    /* width will be set by JS: sections.length * 100vw */
 }
 
-@keyframes bodyBounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+/* Individual section styling */
+.content-section {
+    width: 100vw;
+    height: 100vh;
+    flex-shrink: 0; /* Prevent section compression */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
 }
 
-/* Apply animations when walking */
-.walking .leg-left {
-  animation: legSwing 1s infinite ease-in-out;
+/* Section content container */
+.content-section > div {
+    width: 90%;
+    max-width: 700px;
+    text-align: center;
+    padding: 2rem;
+    z-index: 1; /* Ensure content stays above animations */
 }
 
-.walking .leg-right {
-  animation: legSwing 1s infinite ease-in-out reverse;
+/* Section background colors */
+.content-section:nth-child(1) { background-color: #E2D03E; }
+.content-section:nth-child(2) { background-color: #4DAE85; }
+.content-section:nth-child(3) { background-color: #ED5D53; }
+.content-section:nth-child(4) { background-color: #4A90E2; }
+.content-section:nth-child(5) { background-color: #6C63FF; }
+
+/* Walking man container positioning */
+.animation-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 30%;
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    pointer-events: none; /* Allow interactions with content behind */
+    z-index: 50;
+    padding: 0;
+    margin: 0;
 }
 
-.walking .arm-left {
-  animation: armSwing 1s infinite ease-in-out;
+/* SVG sizing and positioning */
+.animation-container svg {
+    height: 42vh;
+    width: auto;
+    display: block;
+    margin-bottom: -7px; /* Makes feet touch bottom edge */
+    transform-origin: center center;
 }
 
-.walking .arm-right {
-  animation: armSwing 1s infinite ease-in-out reverse;
+/* Navigation dots container */
+.navigation-dots {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.walking .dude {
-  animation: bodyBounce 0.5s infinite ease-in-out;
+/* Individual navigation dot */
+.nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-/* Section transitions */
-.section-enter {
-  opacity: 0;
-  transform: translateX(100%);
+/* Active navigation dot */
+.nav-dot.active {
+    background-color: white;
+    transform: scale(1.5);
 }
 
-.section-enter-active {
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity 500ms, transform 500ms;
+/* Scroll down arrow animation */
+.arrow-animated {
+    font-size: 35px;
+    animation: arrow-float 1s infinite;
 }
 
-.section-exit {
-  opacity: 1;
-  transform: translateX(0);
+@keyframes arrow-float {
+    0% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    60% {
+        transform: translateY(50%);
+        animation-timing-function: ease-in-out;
+    }
+    100% {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
 }
 
-.section-exit-active {
-  opacity: 0;
-  transform: translateX(-100%);
-  transition: opacity 500ms, transform 500ms;
-}
+/* Responsiveness adjustments */
+@media (max-width: 768px) {
+    .animation-container {
+        width: 50%; /* Larger width on smaller screens */
+    }
 
-/* Skill tag animations */
-@keyframes skillPulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
-  }
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 0 0 10px rgba(74, 144, 226, 0);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
-  }
-}
-
-.skill-tag:hover {
-  animation: skillPulse 1.5s infinite;
+    .content-section > div {
+        padding: 1rem;
+        width: 95%;
+    }
 }
