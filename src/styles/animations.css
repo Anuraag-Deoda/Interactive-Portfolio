@@ -1,54 +1,9 @@
+/* src/styles/animations.css */
 html, body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-    width: 100%;
 }
 
-/* Main scrollable container */
-.page {
-    height: 500vh;  /* Controls total scroll length */
-    position: relative;
-}
-
-/* Fixed container for horizontally sliding content */
-.content {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    display: flex;
-    /* width will be set by JS: sections.length * 100vw */
-}
-
-/* Individual section styling */
-.content-section {
-    width: 100vw;
-    height: 100vh;
-    flex-shrink: 0; /* Prevent section compression */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: sans-serif;
-}
-
-/* Section content container */
-.content-section > div {
-    width: 90%;
-    max-width: 700px;
-    text-align: center;
-    padding: 2rem;
-    z-index: 1; /* Ensure content stays above animations */
-}
-
-/* Section background colors */
-.content-section:nth-child(1) { background-color: #E2D03E; }
-.content-section:nth-child(2) { background-color: #4DAE85; }
-.content-section:nth-child(3) { background-color: #ED5D53; }
-.content-section:nth-child(4) { background-color: #4A90E2; }
-.content-section:nth-child(5) { background-color: #6C63FF; }
-
-/* Walking man container positioning */
 .animation-container {
     position: fixed;
     left: 0;
@@ -57,51 +12,67 @@ html, body {
     height: 40vh;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
-    pointer-events: none; /* Allow interactions with content behind */
-    z-index: 50;
-    padding: 0;
-    margin: 0;
+    align-items: center;
+    flex-direction: column;
+    font-family: sans-serif;
+    font-size: 15px;
 }
 
-/* SVG sizing and positioning */
-.animation-container svg {
+svg {
     height: 42vh;
-    width: auto;
-    display: block;
-    margin-bottom: -7px; /* Makes feet touch bottom edge */
-    transform-origin: center center;
 }
 
-/* Navigation dots container */
-.navigation-dots {
+.page {
+    height: 400vh;
+}
+
+.content {
     position: fixed;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 100;
+    top: 0;
+    left: 0;
+    display: flex;
+}
+
+.content-section {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+}
+
+.content-section:nth-child(1) { background-color: #E2D03E; }
+.content-section:nth-child(2) { background-color: #4DAE85; }
+.content-section:nth-child(3) { background-color: #ED5D53; }
+.content-section:nth-child(4) { background-color: #4A90E2; }
+.content-section:nth-child(5) { background-color: #6C63FF; }
+
+.content-section > div {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin-top: -10vh;
+    max-width: 700px;
+    text-align: center;
 }
 
-/* Individual navigation dot */
-.nav-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-    transition: all 0.3s ease;
+h1 {
+    padding: 0;
+    margin: .5em 0;
 }
 
-/* Active navigation dot */
-.nav-dot.active {
-    background-color: white;
-    transform: scale(1.5);
+p {
+    padding: 0;
+    margin: .25em 0;
 }
 
-/* Scroll down arrow animation */
+a {
+    color: black;
+}
+
 .arrow-animated {
     font-size: 35px;
     animation: arrow-float 1s infinite;
@@ -119,17 +90,5 @@ html, body {
     100% {
         transform: translateY(0);
         animation-timing-function: ease-out;
-    }
-}
-
-/* Responsiveness adjustments */
-@media (max-width: 768px) {
-    .animation-container {
-        width: 50%; /* Larger width on smaller screens */
-    }
-
-    .content-section > div {
-        padding: 1rem;
-        width: 95%;
     }
 }
