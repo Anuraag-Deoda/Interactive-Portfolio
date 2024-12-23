@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // src/App.jsx
 import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
@@ -115,7 +116,20 @@ const App = () => {
         scrub: 1,
         pin: true,
         start: "top top",
-        end: "400%",
+        end: "+=300%", // Fixed end point for 4 sections
+        onUpdate: (self) => {
+          // Always keep animation running while scrolling
+          const velocity = Math.max(Math.abs(self.getVelocity() / 1000), 0.5); // Minimum velocity
+          backCycle.timeScale(velocity).play();
+          frontCycle.timeScale(velocity).play();
+          bodyTimeline.timeScale(velocity).play();
+        },
+        onLeave: () => {
+          // Stop animation when reaching the end
+          backCycle.pause();
+          frontCycle.pause();
+          bodyTimeline.pause();
+        }
       }
     })
       .to(arrowEl, {
@@ -162,31 +176,83 @@ const App = () => {
       title: 'Anuraag Deoda',
       color: '#E2D03E',
       content: (
-        <>
-          <p>FullStack Developer</p>
-          <p className="arrow-animated">↓</p>
-        </>
+        <div className="space-y-4">
+          <h2 className="text-2xl font-semibold">FullStack Developer</h2>
+          <p className="text-lg">Results-driven Full Stack Developer with expertise in both front-end and back-end technologies, including Docker and NLP chatbots.</p>
+          <div className="flex space-x-4">
+            <a href="https://github.com/Anuraag-Deoda" className="hover:underline">GitHub</a>
+            <a href="https://linkedin.com/in/anuraagdeoda" className="hover:underline">LinkedIn</a>
+          </div>
+          <p className="arrow-animated text-2xl">↓</p>
+        </div>
       )
     },
     {
       title: 'Experience',
       color: '#4DAE85',
       content: (
-        <p>Software Development Lead at MITR Media</p>
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-xl font-semibold">Software Development Lead</h3>
+            <p className="text-sm">MITR Media | Mumbai | 08/2023 - Present</p>
+            <ul className="list-disc pl-5 mt-2">
+              <li>Designed and deployed an interactive Ed-Tech game using React</li>
+              <li>Led backend development for ContentAuthor with AI integration</li>
+              <li>Conducted prompt engineering and model refinement</li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold">Teaching Assistant Intern</h3>
+            <p className="text-sm">Coding Ninjas | 02/2023 - 06/2023</p>
+            <ul className="list-disc pl-5 mt-2">
+              <li>Resolved 600+ student doubts in Full Stack Development</li>
+              <li>Mentored 400+ students in web development</li>
+            </ul>
+          </div>
+        </div>
       )
     },
     {
-      title: 'Skills',
+      title: 'Skills & Projects',
       color: '#ED5D53',
       content: (
-        <p>React, Node.js, Python, More...</p>
+        <div className="grid grid-cols-2 gap-6">
+          <div>
+            <h3 className="text-xl font-semibold mb-3">Technical Skills</h3>
+            <div className="flex flex-wrap gap-2">
+              {['React', 'Node.js', 'Python', 'Flask', 'Django', 'Docker', 'AWS', 'SQL', 'Tailwind CSS'].map(skill => (
+                <span key={skill} className="px-3 py-1 bg-black/10 rounded-full text-sm">{skill}</span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold mb-3">Featured Projects</h3>
+            <div className="space-y-3">
+              <div>
+                <h4 className="font-medium">Full Stack Character Chatbot</h4>
+                <p className="text-sm">Built with Flask, React, and OpenAI API</p>
+              </div>
+              <div>
+                <h4 className="font-medium">Chess Engine</h4>
+                <p className="text-sm">Python-based with Stockfish algorithm</p>
+              </div>
+            </div>
+          </div>
+        </div>
       )
     },
     {
       title: 'Contact',
       color: '#4A90E2',
       content: (
-        <p>Let's connect!</p>
+        <div className="space-y-4 text-center">
+          <p className="text-lg">Lets connect and build something amazing together!</p>
+          <div className="space-y-2">
+            <p>📧 anuraagdeoda810@gmail.com</p>
+            <p>📱 9665517826</p>
+            <p>📍 Aurangabad, India</p>
+          </div>
+        </div>
       )
     }
   ];
