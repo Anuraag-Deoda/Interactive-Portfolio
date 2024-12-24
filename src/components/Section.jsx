@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
+
+
 const Section = ({ title, color, content }) => {
     return (
       <div className="content-section" style={{ backgroundColor: color }}>
@@ -12,5 +14,5 @@ const Section = ({ title, color, content }) => {
       </div>
     );
   };
-  
+     
   export default Section;
